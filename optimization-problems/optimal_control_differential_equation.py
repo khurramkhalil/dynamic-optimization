@@ -20,10 +20,10 @@ final = m.Param(value=p)
 
 # Initialize equations
 m.Equation(x1.dt() == u)
-m.Equation(x2.dt() == x1**2 + u**2)
+m.Equation(x2.dt() == x1 ** 2 + u ** 2)
 
 # Objective function
-m.Obj(x2*final)
+m.Obj(x2 * final)
 
 # Set global options
 m.options.IMODE = 6  # dynamic optimization
@@ -34,7 +34,5 @@ m.solve()
 # Results
 print(f'Optimized x2 value: {x2.value[-1]}')
 
-
 if __name__ == "__main__":
     pass
-
