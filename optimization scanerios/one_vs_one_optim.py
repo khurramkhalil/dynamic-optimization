@@ -27,7 +27,6 @@ for i in range(num_workers):
 for j in range(num_tasks):
     solver.Add(solver.Sum([x[i, j] for i in range(num_workers)]) == 1)
 
-
 objective_terms = []
 for i in range(num_workers):
     for j in range(num_tasks):
@@ -37,15 +36,12 @@ solver.Minimize(solver.Sum(objective_terms))
 
 status = solver.Solve()
 
-
 if status == pywraplp.Solver.OPTIMAL or status == pywraplp.Solver.FEASIBLE:
     print(f'Total cost = {solver.Objective().Value()}\n')
     for i in range(num_workers):
         for j in range(num_tasks):
             # Test if x[i,j] is 1 (with tolerance for floating point arithmetic).
             if x[i, j].solution_value() > 0.5:
-                print(f'Worker {i} assigned to task {j}.' +
-                      f' Cost: {costs[i][j]}')
+                print(f'Worker {i} assigned to task {j}.' + f' Cost: {costs[i][j]}')
 else:
     print('No solution found.')
-
