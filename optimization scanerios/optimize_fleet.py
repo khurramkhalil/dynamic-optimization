@@ -3,11 +3,13 @@ from ortools.linear_solver import pywraplp
 import time
 
 t1 = time.time()
-costs = np.array([
-    [20, 40, 60],
-    [10, 5, 20],
-    [30, 60, 90]
-])
+# costs = np.array([
+#     [20, 40, 60],
+#     [10, 5, 20],
+#     [30, 60, 90]
+# ])
+costs = np.random.randint(50, size=(10, 5))
+print(costs)
 
 num_workers = len(costs)
 num_tasks = len(costs[0])
@@ -24,11 +26,11 @@ for i in range(num_workers):
 
 # Each worker is assigned to at most 1 task.
 for i in range(num_workers):
-    solver.Add(solver.Sum([x[i, j] for j in range(num_tasks)]) >= 1)
+    solver.Add(solver.Sum([x[i, j] for j in range(num_tasks)]) <= 1)
 
 # Each task is assigned to exactly one worker.
 for j in range(num_tasks):
-    solver.Add(solver.Sum([x[i, j] for i in range(num_workers)]) >= 1)
+    solver.Add(solver.Sum([x[i, j] for i in range(num_workers)]) == 1)
 
 objective_terms = []
 for i in range(num_workers):
