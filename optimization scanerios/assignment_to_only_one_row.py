@@ -5,12 +5,15 @@ from ortools.linear_solver import pywraplp
 import time
 
 t1 = time.time()
-costs = [
-    [20, 40, 160, 100, 100, 100, 100, 1100],
-    [100, 180, 10, 30, 100, 100, 1200, 180, 200],
-    [100, 90, 100, 100, 50, 5, 100, 900],
-    [1000, 100, 100, 100, 100, 100, 60, 70]
-]
+
+costs = np.random.randint(20, size=(5, 4))
+print(costs)
+# costs = [
+#     [20, 40, 160, 100, 100, 100, 100, 1100],
+#     [100, 180, 10, 30, 100, 100, 1200, 180, 200],
+#     [100, 90, 100, 100, 50, 5, 100, 900],
+#     [1000, 100, 100, 100, 100, 100, 60, 70]
+# ]
 
 
 
@@ -33,7 +36,7 @@ for i in range(num_workers):
 
 # Each task is assigned to exactly one worker.
 for j in range(num_tasks):
-    solver.Add(solver.Sum([x[i, j] for i in range(num_workers)]) >= 1)
+    solver.Add(solver.Sum([x[i, j] for i in range(num_workers)]) <= 3)
 
 objective_terms = []
 for i in range(num_workers):
