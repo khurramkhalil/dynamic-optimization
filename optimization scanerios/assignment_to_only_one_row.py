@@ -1,3 +1,9 @@
+# Number of worker > number of jobs (tasks)
+# This script optimize more vs less scanerios
+# This assigns all available worker to the tasks (irrespective of the fact if number
+# of tasks == numer of worker or less)
+# All workers are gurantted assigned the job rd
+
 import numpy as np
 from ortools.sat.python import cp_model
 from ortools.linear_solver import pywraplp
