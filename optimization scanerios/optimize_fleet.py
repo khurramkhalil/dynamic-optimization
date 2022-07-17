@@ -1,3 +1,8 @@
+# Number of workers > number of jobs (tasks)
+# This script optimizes more vs less scanerios
+# This assigns worker == number of tasks
+# The remaining worker are left as it is
+
 import numpy as np
 from ortools.linear_solver import pywraplp
 import time
