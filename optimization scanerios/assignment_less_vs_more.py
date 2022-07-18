@@ -1,20 +1,25 @@
-# Number of workers > number of jobs (tasks)
-# This script optimizes more vs less scanerios
-# This assigns worker == number of tasks
-# The remaining worker are left as it is
+# Number of worker < number of jobs (tasks)
+# This script optimize less vs more scanerios
+# This assigns all available worker to the tasks (irrespective of the fact if number
+# of tasks == numer of worker or more)
+# All workers are gurantted assigned the job
+# Each worker is assigned to new job
 
 import numpy as np
+from ortools.sat.python import cp_model
 from ortools.linear_solver import pywraplp
+
 import time
 
 t1 = time.time()
-# costs = np.array([
-#     [20, 40, 60],
-#     [10, 5, 20],
-#     [30, 60, 90]
-# ])
-costs = np.random.randint(50, size=(10, 5))
-print(costs)
+costs = np.random.randint(10000, size=(100, 100))
+# print(costs)
+# costs = [
+#     [20, 40, 160, 100, 700, 100, 100, 1100],
+#     [100, 180, 10, 30, 100, 100, 1200, 180, 200],
+#     [100, 90, 100, 100, 50, 5, 100, 900],
+#     [1000, 100, 100, 100, 100, 100, 60, 70]
+# ]
 
 num_workers = len(costs)
 num_tasks = len(costs[0])
@@ -31,11 +36,11 @@ for i in range(num_workers):
 
 # Each worker is assigned to at most 1 task.
 for i in range(num_workers):
-    solver.Add(solver.Sum([x[i, j] for j in range(num_tasks)]) <= 1)
+    solver.Add(solver.Sum([x[i, j] for j in range(num_tasks)]) == 1)
 
 # Each task is assigned to exactly one worker.
 for j in range(num_tasks):
-    solver.Add(solver.Sum([x[i, j] for i in range(num_workers)]) == 1)
+    solver.Add(solver.Sum([x[i, j] for i in range(num_workers)]) <= 1)
 
 objective_terms = []
 for i in range(num_workers):
@@ -56,4 +61,4 @@ if status == pywraplp.Solver.OPTIMAL or status == pywraplp.Solver.FEASIBLE:
 else:
     print('No solution found.')
 
-print(f'Tora time taken: {time.time() - t1}')
+print(f'Total time taken: {time.time() - t1}')
