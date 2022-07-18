@@ -54,7 +54,6 @@ else:
 
 print(f'Total time taken: {time.time() - t1}')
 
-
 # from ortools.sat.python import cp_model
 #
 #

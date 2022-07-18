@@ -1,5 +1,5 @@
 # Number of workers > number of jobs (tasks)
-# This script optimizes more vs less scanerios
+# This script optimizes more vs less scenarios
 # This assigns worker == number of tasks
 # The remaining worker are left as it is
 
