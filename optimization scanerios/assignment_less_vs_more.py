@@ -1,8 +1,8 @@
 # Number of worker < number of jobs (tasks)
-# This script optimize less vs more scanerios
+# This script optimize less vs more scenarios
 # This assigns all available worker to the tasks (irrespective of the fact if number
 # of tasks == numer of worker or more)
-# All workers are gurantted assigned the job
+# All workers are guaranteed assigned the job
 # Each worker is assigned to new job
 
 import numpy as np
