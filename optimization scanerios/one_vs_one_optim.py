@@ -1,6 +1,7 @@
 import numpy as np
 from ortools.linear_solver import pywraplp
 
+# Cost matrix
 costs = np.array([
     [20, 10],
     [10, 5]
